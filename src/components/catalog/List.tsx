@@ -8,11 +8,11 @@ import { useSearchParams } from 'next/navigation';
 
 function CatalogList() {
   const params = useSearchParams();
-  const id = params.get('id')
-  console.log(id)
+  const id = params.get('id');
+  console.log(id);
   // id += 1;
   //getImageByPrductId(id)
-  const images = DATA[0].images
+  const images = DATA[0].images;
   return (
     <div className="flex flex-wrap justify-center mb-4">
       {images?.map((_image: any, index) => {

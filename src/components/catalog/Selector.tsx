@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 function CatalogSelector() {
-  return (
-    <div>Catalog</div>
-  )
+  return <div>Catalog</div>;
 }
 
-export default CatalogSelector
+export default CatalogSelector;
