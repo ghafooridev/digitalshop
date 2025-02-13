@@ -14,6 +14,9 @@ function Welcome() {
       <Button asChild className="mt-6">
         <Link href="/products">Go to products</Link>
       </Button>
+      <Button asChild className="mt-6">
+        <Link href="/user">Go to user</Link>
+      </Button>
     </div>
   );
 }
