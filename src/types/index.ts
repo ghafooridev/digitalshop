@@ -1,3 +1,5 @@
-import { Prisma } from "@prisma/client";
+import { Prisma } from '@prisma/client';
 
-export type ProductsWithImages = Prisma.ProductGetPayload<{ include: { images: true } }>
+export type ProductsWithImages = Prisma.ProductGetPayload<{
+  include: { images: true };
+}>;
