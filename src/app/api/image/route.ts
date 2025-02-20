@@ -7,19 +7,20 @@ import { promises as fs } from 'fs';
 import { prisma } from '@/lib/prisma';
 
 export async function POST(req: NextRequest) {
-
   const formData = await req.formData();
   const file = formData.get('file') as File;
   const productId = formData.get('productId') as string;
 
   if (!file || !productId) {
-    return NextResponse.json({
-      error: "Missing file or product id"
-    }, {
-      status: 400
-    })
+    return NextResponse.json(
+      {
+        error: 'Missing file or product id',
+      },
+      {
+        status: 400,
+      },
+    );
   } else {
-
     // save image to anywhere // local / DB / cloud service
 
     // Read the file data as a buffer
@@ -37,8 +38,7 @@ export async function POST(req: NextRequest) {
     await writeFile(filePath, buffer);
 
     // Construct the public URL
-    const fileUrl = `/assets/${productId}/${file.name}`
-
+    const fileUrl = `/assets/${productId}/${file.name}`;
 
     // save to DB using prisma
 
@@ -46,17 +46,16 @@ export async function POST(req: NextRequest) {
       where: { id: productId },
       data: {
         images: {
-          create: { image: fileUrl }
-        }
+          create: { image: fileUrl },
+        },
       },
-      include: { images: true }
-    })
-
+      include: { images: true },
+    });
 
     return NextResponse.json({
-      message: "File Uploaded Successfully",
-      data: updatedProduct?.images
-    })
+      message: 'File Uploaded Successfully',
+      data: updatedProduct?.images,
+    });
   }
 }
 
@@ -64,23 +63,23 @@ export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const productId = searchParams.get('productId');
   if (!productId) {
-    return NextResponse.json({
-      error: "Missing product id"
-    }, {
-      status: 400
-    })
+    return NextResponse.json(
+      {
+        error: 'Missing product id',
+      },
+      {
+        status: 400,
+      },
+    );
   } else {
-
-
     const images = await prisma.image.findMany({
-      where: { productId }
+      where: { productId },
     });
     return NextResponse.json({
-      images
-    })
+      images,
+    });
     // query string ?data=''
     // get productImage
-
   }
 }
 
@@ -91,25 +90,31 @@ export async function DELETE(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const imageId = searchParams.get('imageId');
   if (!imageId) {
-    return NextResponse.json({
-      error: "Missing image id"
-    }, {
-      status: 400
-    })
+    return NextResponse.json(
+      {
+        error: 'Missing image id',
+      },
+      {
+        status: 400,
+      },
+    );
   }
   const image = await prisma.image.findUnique({
     where: {
-      id: imageId
+      id: imageId,
     },
-    include: { Product: true }
-  })
+    include: { Product: true },
+  });
 
   if (!image) {
-    return NextResponse.json({
-      error: "invalid image id"
-    }, {
-      status: 400
-    })
+    return NextResponse.json(
+      {
+        error: 'invalid image id',
+      },
+      {
+        status: 400,
+      },
+    );
   }
 
   // Construct the file path from stored URL
@@ -127,15 +132,15 @@ export async function DELETE(req: NextRequest) {
     );
   }
 
+  await prisma.image.delete({ where: { id: imageId } });
 
-  await prisma.image.delete({ where: { id: imageId } })
-
-  return NextResponse.json({
-    message: "Image deleted successfully",
-    data: image.productId
-  }, {
-    status: 200
-  })
-
-
+  return NextResponse.json(
+    {
+      message: 'Image deleted successfully',
+      data: image.productId,
+    },
+    {
+      status: 200,
+    },
+  );
 }
