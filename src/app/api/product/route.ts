@@ -13,3 +13,4 @@ export async function GET(req: NextRequest, res: NextResponse) {
     data: result,
   });
 }
+// POST / PUT / DELETE
