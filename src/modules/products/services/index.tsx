@@ -16,6 +16,8 @@ export const getProductsAPI = async () => {
 };
 
 export const getProductById = async (id: string) => {
+  // throw new Error('some errors from server please try again');
+  // await new Promise((resolve) => setTimeout(resolve, 4000));
   const result = await prisma.product.findFirst({
     where: { id },
     include: { images: true },

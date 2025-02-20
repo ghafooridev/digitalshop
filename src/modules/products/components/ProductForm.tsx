@@ -22,8 +22,24 @@ import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { upsertProduct } from '../services';
 import UploadImage from './UploadImage';
+import {
+  useParams,
+  usePathname,
+  useRouter,
+  useSearchParams,
+} from 'next/navigation';
 
 const ProductForm = (props: { product: Product | null }) => {
+  const pathName = usePathname();
+  // console.log(pathName);
+  const params = useParams();
+  // console.log(params);
+  const searchParams = useSearchParams();
+  // console.log(searchParams);
+  const discount = searchParams.get('discount');
+
+  const router = useRouter();
+  // console.log(router);
   const { product } = props;
   const { register, handleSubmit, setValue } = useForm<Product>();
 
@@ -41,6 +57,9 @@ const ProductForm = (props: { product: Product | null }) => {
       <form className="max-w-lg" onSubmit={handleSubmit(onSubmitForm)}>
         <CardHeader>
           <CardTitle> Product</CardTitle>
+          <CardTitle className="text-red-600">
+            this product has {discount} % discount
+          </CardTitle>
           <CardDescription>Create New Product</CardDescription>
         </CardHeader>
         <CardContent>
