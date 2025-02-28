@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 
 import { NextRequest } from 'next/server';
 
-export async function GET(req: NextRequest, res: NextResponse) {
+export async function GET(req: NextRequest) {
   console.log(req);
   // get action by prisma
   const result = await prisma.product.findMany({ include: { images: true } });
