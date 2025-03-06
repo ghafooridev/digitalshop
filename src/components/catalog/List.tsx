@@ -9,7 +9,6 @@ import { useSearchParams } from 'next/navigation';
 function CatalogList() {
   const params = useSearchParams();
   const id = params.get('id');
-  console.log(id);
   // id += 1;
   //getImageByPrductId(id)
   const images = DATA[0].images;

@@ -2,6 +2,7 @@
 
 import { prisma } from '@/lib/prisma';
 import { Product } from '@prisma/client';
+import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 export const getProducts = async () => {
@@ -10,12 +11,16 @@ export const getProducts = async () => {
 };
 
 export const getProductsAPI = async () => {
-  const result = await fetch('/api/product');
+  // const result = await fetch('/api/product');
+  const result = await fetch('http://localhost:3000/api/product', {
+    next: { revalidate: 30 },
+  });
   const response = await result.json();
   return response;
 };
 
 export const getProductById = async (id: string) => {
+  console.log('product', id);
   // throw new Error('some errors from server please try again');
   // await new Promise((resolve) => setTimeout(resolve, 4000));
   const result = await prisma.product.findFirst({
@@ -43,6 +48,8 @@ export const upsertProduct = async (product: Product) => {
       data: product,
     });
   }
+
+  revalidatePath('/dashboard/products');
 
   return result;
 };

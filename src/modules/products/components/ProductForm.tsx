@@ -46,10 +46,11 @@ const ProductForm = (props: { product: Product | null }) => {
   const onSubmitForm = (data: Product) => {
     const _product = {
       ...data,
+      id: product?.id,
       price: parseFloat(data?.price?.toString() || '0'),
       quantity: parseFloat(data?.quantity?.toString() || '0'),
     };
-    upsertProduct(_product);
+    upsertProduct(_product as Product);
   };
 
   return (

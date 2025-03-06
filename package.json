@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "prod": "next build && next start",
     "format": "prettier --write .",
     "prepare": "husky",
     "studio": "npx prisma studio",

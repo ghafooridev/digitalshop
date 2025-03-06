@@ -4,7 +4,6 @@ import React from 'react';
 
 async function Products() {
   const data: PrismaType.Product[] = await prisma.product.findMany(); //query // mutation
-  console.log(data);
   return (
     <div>
       <ProductListView />
