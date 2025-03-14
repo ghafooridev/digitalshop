@@ -29,6 +29,7 @@ model Product{
   price Float? @default(0.0)
   quantity Int? @default(0)  
   images Image[]
+  cart CartItem[]
  }
 
  model Image{
@@ -38,8 +39,10 @@ model Product{
   productId String?
  }
 
-
- // 1- generate 
- // 2 - migrate
-
-//  iphone 123 -> image1/image2/.... one to many
+model CartItem{
+  id Int @id @default(autoincrement())
+  userId String
+  productId String
+  quantity Int
+  product Product @relation(fields: [productId],references: [id])
+}
