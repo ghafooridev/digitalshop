@@ -9,7 +9,6 @@
     "lint": "next lint",
     "prod": "next build && next start",
     "format": "prettier --write .",
-    "prepare": "husky",
     "studio": "npx prisma studio",
     "generate": "npx prisma generate",
     "migrate": "npx prisma migrate dev"
