@@ -42,7 +42,7 @@ const ProductForm = (props: { product: Product | null }) => {
   const { error, data } = state;
 
   const [submitted, setSubmitted] = useState(false);
-  
+
   const handleSubmit = async (formData: FormData) => {
     setSubmitted(true);
     action(formData);
