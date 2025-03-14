@@ -6,3 +6,4 @@ export * from './select';
 export * from './input';
 export * from './textarea';
 export * from './label';
+export * from './dropdown-menu';

@@ -23,7 +23,7 @@ enum ProductCategory {
 
 model Product{
   id String @id @default(uuid())
-  name String
+  name String @db.VarChar(255)
   category ProductCategory
   description String?
   price Float? @default(0.0)
